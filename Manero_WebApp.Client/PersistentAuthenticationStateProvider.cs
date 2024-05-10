@@ -36,6 +36,8 @@ namespace Manero_WebApp.Client
                     authenticationType: nameof(PersistentAuthenticationStateProvider)))));
         }
 
+        
+
         public override Task<AuthenticationState> GetAuthenticationStateAsync() => authenticationStateTask;
     }
 }
