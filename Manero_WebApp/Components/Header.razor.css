@@ -1,0 +1,42 @@
+﻿.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    font-family: Mulish;
+}
+
+h1 {
+    padding-top: 5px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.header-bars {
+    font-size: 25px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.header-bag {
+    font-size: 25px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.bag-total {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #F4303C;
+    text-align: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    position: absolute;
+    top: 30px;
+    right: 27px;
+}
