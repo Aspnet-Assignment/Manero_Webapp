@@ -1,0 +1,40 @@
+﻿.container {
+
+}
+
+.product-img {
+
+}
+
+.product-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.product-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.product-size {
+    margin-top: 25px;
+}
+
+.product-color {
+    margin-top: 25px;
+}
+
+.product-description {
+    margin-top: 25px;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-top: 15px;
+}

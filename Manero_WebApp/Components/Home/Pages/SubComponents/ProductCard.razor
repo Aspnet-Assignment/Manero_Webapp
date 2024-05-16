@@ -1,14 +1,23 @@
-﻿<div class="product-card">
+﻿@page "/product/{ProductId:int}"
+
+<link rel="stylesheet" href="_ProductCard.razor.css" />
+
+
+<div class="product-card" style="cursor: pointer; text-decoration: none;">
     <a>
+        <NavLink href="@($"/product")">
         <div class="product-img">
             <img src="/images/home/clothes-1.jpg" />
         </div>
         <img class="rating" src="/images/home/rating.svg" />
         <p class="product-name">Product Name</p>
         <p class="product-price">$13.37</p>
+        </NavLink>
     </a>
 </div>
 
 @code {
+    [Parameter]
+    public int ProductId { get; set; }
 
 }

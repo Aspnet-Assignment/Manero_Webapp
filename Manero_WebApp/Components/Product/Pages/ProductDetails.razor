@@ -1,0 +1,51 @@
+﻿@page "/product"
+
+<link rel="stylesheet" href="_ProductDetails.razor.css" />
+
+    <div class="product-img">
+        <img src="/images/home/clothes-1.jpg" />
+
+    </div>
+
+    <ProdImgCarousel />
+
+    <div class="container">
+    <div class="product-name">
+        <ProductName />
+        <AddToWishlist />
+    </div>
+
+    <div class="product-rating">
+        <ProductRating />
+    </div>
+    
+    <div class="product-price">
+        <ProductPrice />
+        <ProductQuantity />
+    </div>
+
+    <div class="product-size">
+        <ProductSize />
+    </div>
+
+    <div class="product-color">
+        <ProductColor />
+    </div>
+
+    <div class="product-description">
+        <h3>Description for ID: @productId</h3>
+        <p>Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.</p>
+    </div>
+
+    <div class="add-cart">
+        <AddToCart />
+    </div>
+    
+    </div>
+    
+
+
+@code {
+    [Parameter]
+    public int productId { get; set; }
+}
