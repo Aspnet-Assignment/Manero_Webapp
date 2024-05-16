@@ -31,14 +31,6 @@ i {
     color: black;
 }
 
-.nav-bottom {
-    width: 150px;
-    height: 7px;
-    border-radius: 40px;
-    background-color: black;
-    margin: 0 auto;
-    margin-bottom: 10px;
-}
 
 ::deep .active {
     background-color: #DBE3F5;
