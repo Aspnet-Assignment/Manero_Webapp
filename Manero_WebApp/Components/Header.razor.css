@@ -29,6 +29,7 @@ h1 {
     font-size: 25px;
     margin-right: 5px;
     cursor: pointer;
+    color: black;
 }
 
 .bag-total {
