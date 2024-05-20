@@ -21,3 +21,8 @@
     font-weight: 600;
     font-size: 18px;
 }
+
+.product-card a {
+    text-decoration: none;
+    color: inherit;
+}

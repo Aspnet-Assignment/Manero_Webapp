@@ -14,63 +14,60 @@
 @inject ILogger<Register> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config {theme: colors: {white: '#FFFFFF' black: '#111111'} {screens: {'sm': '640px', 'md': '768px', 'lg': '1024px', 'xl': '1280px', '2xl': '1536px',</script>
 
-<PageTitle>Register</PageTitle>
+<PageTitle>Signup</PageTitle>
 
-<h1>Register</h1>
-
-<div class="row">
-    <div class="col-md-4">
+<div class="text-center">
+    <div class="flex justify-center mt-5">
+    <img class="" src="../../Images/rectangle.png" alt="">
+    </div>
+    
+    <div class="">
         <StatusMessage Message="@Message" />
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+        <EditForm class="" Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <h2>Create a new account.</h2>
-            <p>Already have an account? <a href="/account/login">Sign in</a></p>
+            <h1 class="font-semibold text-2xl mb-5 mt-2">Sign Up</h1>
             
             <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.FirstName" class="form-control" autocomplete="username" aria-required="true" placeholder="Name" />
-                <label for="firstname">First Name</label>
+            <div class="grid justify-center">
+                <label class="grid justify-start ml-8" for="firstname">First Name</label>
+                <InputText @bind-Value="Input.FirstName" class="border rounded-full w-96 h-10 p-4" autocomplete="username" aria-required="true"/>
                 <ValidationMessage For="() => Input.FirstName" class="text-danger" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.LastName" class="form-control" autocomplete="username" aria-required="true" placeholder="Lastname" />
-                <label for="email">Email</label>
+            <div class="grid justify-center">
+                <label class="grid justify-start ml-8 " for="lastname">Last Name</label>
+                <InputText @bind-Value="Input.LastName" class="border rounded-full w-96 h-10 p-4" autocomplete="username" aria-required="true" />
                 <ValidationMessage For="() => Input.LastName" class="text-danger" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Email</label>
+            <div class="grid justify-center">
+                <label class="grid justify-start ml-8 " for="email">Email</label>
+                <InputText @bind-Value="Input.Email" class="border rounded-full w-96 h-10 p-4" autocomplete="username" aria-required="true" />
                 <ValidationMessage For="() => Input.Email" class="text-danger" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="password">Password</label>
+            <div class="grid justify-center">
+                <label class="grid justify-start ml-8 " for="password">Password</label>
+                <InputText type="password" @bind-Value="Input.Password" class="border rounded-full w-96 h-10 p-4" autocomplete="new-password" aria-required="true" />
                 <ValidationMessage For="() => Input.Password" class="text-danger" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Confirm Password</label>
+            <div class="grid justify-center">
+                <label class="grid justify-start ml-8 " for="confirm-password">Confirm Password</label>
+                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="border rounded-full w-96 h-10 p-4" autocomplete="new-password" aria-required="true" />
                 <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
             </div>
             <div>
                 <div>
                     <InputCheckbox @bind-Value="Input.TermsAndConditions" />
-                    <label >
+                    <label class="mt-2" >
                         I accept the <NavLink href="/terms">Terms & Conditions</NavLink>
                     </label>
                 </div>
                 <ValidationMessage For="() => Input.TermsAndConditions" class="text-danger" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button type="submit" class="mt-2 bg-black rounded-3xl text-white px-40 py-2">SIGN UP</button>
         </EditForm>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            <ExternalLoginPicker />
-        </section>
+        <p class="mb-10">Already have an account? <a class="font-bold" href="/account/login">Sign in</a></p>
     </div>
 </div>
 

@@ -1,0 +1,12 @@
+﻿.detail-carousel {
+    border-bottom: 2px solid #dbe3f5;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+i {
+    margin-bottom: 10px;
+}

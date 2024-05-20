@@ -1,0 +1,14 @@
+﻿.add-cart {
+    width: 100%;
+    background-color: black;
+    color: white;
+    border-radius: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.add-cart h6 {
+    margin-bottom: auto;
+}

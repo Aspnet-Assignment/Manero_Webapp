@@ -1,0 +1,12 @@
+﻿
+<link rel="stylesheet" href="ProductQuantity.razor.css" />
+
+<div class="prod-quantity">
+    <button class="btn-quantity" ><i class="fa-regular fa-minus fa-2xs"></i></button>
+    <span> @currentQuantity</span>
+    <button class="btn-quantity"><i class="fa-regular fa-plus fa-2xs"></i></button>
+</div>
+
+@code {
+    private int currentQuantity = 1;
+}

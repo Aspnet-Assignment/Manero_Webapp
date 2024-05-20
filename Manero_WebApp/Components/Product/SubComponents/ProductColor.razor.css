@@ -1,0 +1,40 @@
+﻿.prod-color {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+a {
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+h3 {
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.prod-red {
+    background-color: #ff6262;
+}
+
+.prod-lightblue {
+    background-color: #63c7ff;
+}
+
+.prod-beige {
+    background-color: #f8e7cd;
+}
+
+.prod-darkblue {
+    background-color: #323858;
+}
+
+.prod-black {
+    background-color: black;
+}
