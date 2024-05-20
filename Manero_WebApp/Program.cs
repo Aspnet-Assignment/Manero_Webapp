@@ -1,6 +1,7 @@
 using Manero_WebApp.Components;
 using Manero_WebApp.Components.Account;
 using Manero_WebApp.Data;
+using Manero_WebApp.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,8 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
+builder.Services.AddSingleton<ProductService>();
+builder.Services.AddSingleton<CartService>();
 
 builder.Services.AddAuthentication(options =>
     {

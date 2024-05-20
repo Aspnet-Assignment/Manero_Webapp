@@ -1,17 +1,20 @@
-﻿@page "/product"
+﻿@page "/product/{productId}"
+
+@inject ProductService ProductService
+@inject CartService CartService
+@rendermode InteractiveServer
 
 <link rel="stylesheet" href="_ProductDetails.razor.css" />
 
     <div class="product-img">
-        <img src="/images/home/clothes-1.jpg" />
-
+        <img src="@Product?.ImageUrl" />
     </div>
 
     <ProdImgCarousel />
 
     <div class="container">
     <div class="product-name">
-        <ProductName />
+        <ProductName Name="@Product?.Title"/>
         <AddToWishlist />
     </div>
 
@@ -20,25 +23,27 @@
     </div>
     
     <div class="product-price">
-        <ProductPrice />
-        <ProductQuantity />
+        <ProductPrice Price="@Product!.Price" />
+        <ProductQuantity Quantity="@Quantity" QuantityChanged="OnQuantityChanged" />
     </div>
 
     <div class="product-size">
-        <ProductSize />
+        <ProductSize @bind-SelectedSize="selectedSize" Sizes="AvailableSizes" AllSizes="AllSizes" />
     </div>
 
     <div class="product-color">
-        <ProductColor />
+        <ProductColor @bind-SelectedColor="selectedColor" Colors="AvailableColors" AllColors="AllColors"/>
     </div>
+    <AddToCart OnAddToCart="AddToCart" IsDisabled="string.IsNullOrEmpty(selectedSize) || string.IsNullOrEmpty(selectedColor)" />
+
 
     <div class="product-description">
-        <h3>Description for ID: @productId</h3>
+        <h3>Long description for: @Product.LongDescription</h3>
         <p>Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.</p>
     </div>
 
     <div class="add-cart">
-        <AddToCart />
+        <AddToCart OnAddToCart="AddToCart" IsDisabled="string.IsNullOrEmpty(selectedSize) || string.IsNullOrEmpty(selectedColor)"/>
     </div>
     
     </div>
@@ -47,5 +52,51 @@
 
 @code {
     [Parameter]
-    public int productId { get; set; }
+    public string? productId { get; set; }
+
+    public ProductEntity? Product { get; set; }
+
+    public List<string> AvailableSizes { get; set; } = new();
+    public List<string> AvailableColors { get; set; } = new();
+    public List<string> AllSizes { get; set; } = new() { "XS", "S", "M", "L", "XL", "XXL" };
+    public List<string> AllColors { get; set; } = new() { "Red", "LightBlue", "Beige", "DarkBlue","Black" };
+    public string? selectedSize;
+    public string? selectedColor;
+    public int Quantity { get; set; } = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Product = await ProductService.GetAllProductByIdAsync(productId!);
+        if (Product != null)
+        {
+            var relatedProducts = await ProductService.GetProductsBytTitleAndBatchAsync(Product.Title, Product.BatchNumber);
+            AvailableSizes = relatedProducts.Select(x => x.Size).Distinct().ToList();
+            AvailableColors = relatedProducts.Select(x => x.Color).Distinct().ToList();
+        }
+    }
+
+    private void OnQuantityChanged(int newQuantity)
+    {
+        Quantity = newQuantity;
+    }
+
+    private void AddToCart()
+    {
+        if (Product != null && !string.IsNullOrEmpty(selectedSize) && !string.IsNullOrEmpty(selectedColor))
+        {
+            var cartItem = new CartItem
+                {
+                    ProductId = Product.Id,
+                    Title = Product.Title,
+                    Price = Product.Price,
+                    Size = selectedSize,
+                    Color = selectedColor,
+                    Quantity = Quantity,
+                    ImageUrl = "/images/home/clothes-1.jpg"
+                };
+
+            CartService.AddToCart(cartItem);
+        }
+    }
+
 }

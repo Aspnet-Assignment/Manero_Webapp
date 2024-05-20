@@ -3,8 +3,24 @@
 }
 
 .product-img {
-
+    display: flex;
+    justify-content: center;
 }
+
+@media (min-width: 1200px) {
+    .product-img img {
+        width: 50%;
+        height: 50%;
+    }
+}
+
+@media (max-width: 800px) {
+    .product-img img {
+        width: 100%;
+        height: auto;
+    }
+}
+
 
 .product-name {
     display: flex;
