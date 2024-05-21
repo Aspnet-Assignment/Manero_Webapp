@@ -9,10 +9,10 @@
     <div class="product-img">
         <img src="@Product?.ImageUrl" />
     </div>
+<ProdImgCarousel />
+    <div class="prod-bottom-border"></div>
 
 <div class="container">
-    <ProdImgCarousel />
-
 
     
     <div class="product-name">
@@ -36,22 +36,22 @@
     <div class="product-color">
         <ProductColor @bind-SelectedColor="selectedColor" Colors="AvailableColors" AllColors="AllColors"/>
     </div>
-    <div class="confirmation-message @messageClass">
-        Added @Product?.Title, @selectedColor, @selectedSize to cart.
-    </div>
-
-    <AddToCart OnAddToCart="AddToCart" IsDisabled="string.IsNullOrEmpty(selectedSize) || string.IsNullOrEmpty(selectedColor)" />
-
 
     <div class="product-description">
         <h3>Description</h3>
         <p>@Product!.LongDescription</p>
     </div>
 
+    <div class="confirmation-message @messageClass">
+        Added @Product?.Title, @selectedColor, @selectedSize to cart.
+    </div>
     <div class="add-cart">
         <AddToCart OnAddToCart="AddToCart" IsDisabled="string.IsNullOrEmpty(selectedSize) || string.IsNullOrEmpty(selectedColor)"/>
     </div>
     
+    <div>
+        <ProductReview />
+    </div>
     </div>
     
 

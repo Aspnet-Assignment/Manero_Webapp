@@ -42,48 +42,48 @@ public class ProductService
             Color = "LightBlue",
             Size = "M",
             Price = 799,
-            ImageUrl = "/images/home/clothes-1.jpg"
+            ImageUrl = "https://imgsamanero23.blob.core.windows.net/product-img/t-shirt_black.webp"
         },
         new ProductEntity
         {
             Id = "2",
             BatchNumber = "Batch007",
-            Title = "Chinos",
+            Title = "Jeans",
             ShortDescription = "Short Description t2",
             LongDescription = "Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.",
             Categories = new List<string> { "Pants", "Jeans"},
             Color = "DarkBlue",
             Size = "L",
             Price = 1799,
-            ImageUrl = "/images/home/clothes-1.jpg"
+            ImageUrl = "https://imgsamanero23.blob.core.windows.net/product-img/jeans_blue.webp"
         },
 
         new ProductEntity
         {
             Id = "3",
             BatchNumber = "Batch007",
-            Title = "Chinos",
+            Title = "Jeans",
             ShortDescription = "Short Description t2",
             LongDescription = "Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.",
             Categories = new List<string> { "Pants", "Jeans"},
             Color = "Beige",
             Size = "M",
             Price = 1799,
-            ImageUrl = "/images/home/clothes-1.jpg"
+            ImageUrl = "https://imgsamanero23.blob.core.windows.net/product-img/jeans_blue.webp"
         },
         
         new ProductEntity
         {
             Id = "4",
             BatchNumber = "Batch007",
-            Title = "Chinos",
+            Title = "Jeans",
             ShortDescription = "Short Description t2",
             LongDescription = "Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.",
             Categories = new List<string> { "Pants", "Jeans"},
             Color = "LightBlue",
             Size = "S",
             Price = 1799,
-            ImageUrl = "/images/home/clothes-1.jpg"
+            ImageUrl = "https://imgsamanero23.blob.core.windows.net/product-img/jeans_blue.webp"
         }
     };
 

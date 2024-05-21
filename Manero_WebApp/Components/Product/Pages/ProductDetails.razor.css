@@ -1,5 +1,5 @@
 ﻿.container {
-    padding: 0;
+
 }
 
 .product-img {
@@ -18,12 +18,24 @@
         height: auto;
 
     }
+
+    .prod-bottom-border {
+        border-bottom: 2px solid #dbe3f5;
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 @media (max-width: 800px) {
     .product-img img {
         width: 100%;
         height: auto;
+    }
+
+    .prod-bottom-border {
+        border-bottom: 2px solid #dbe3f5;
+       
     }
 }
 
@@ -85,3 +97,4 @@ img {
 h3 {
     font-weight: 600;
 }
+
