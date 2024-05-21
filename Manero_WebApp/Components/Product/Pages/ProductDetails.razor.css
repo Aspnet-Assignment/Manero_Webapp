@@ -1,5 +1,5 @@
 ﻿.container {
-
+    padding: 0;
 }
 
 .product-img {
@@ -9,8 +9,14 @@
 
 @media (min-width: 1200px) {
     .product-img img {
-        width: 50%;
-        height: 50%;
+        width: 600px;
+        height: auto;
+    }
+
+    .container {
+        width: 600px;
+        height: auto;
+
     }
 }
 
@@ -53,4 +59,29 @@ img {
     height: 100%;
     object-fit: cover;
     margin-top: 15px;
+}
+
+.confirmation-message {
+    background-color: rgba(0, 128, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+    text-align: center;
+}
+
+    .confirmation-message.show {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+
+    .confirmation-message.hide {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+h3 {
+    font-weight: 600;
 }

@@ -10,3 +10,16 @@
     color: #626262;
     cursor: pointer;
 }
+
+.fa-heart {
+    color: white;
+    transition: color 0.3s;
+}
+
+.red-border {
+    -webkit-text-stroke: 1px red;
+}
+
+.filled-red {
+    color: red;
+}
