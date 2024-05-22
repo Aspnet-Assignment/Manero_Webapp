@@ -31,7 +31,10 @@ i {
     color: black;
 }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 ::deep .active {
     background-color: #DBE3F5;
     border-radius: 50%;
