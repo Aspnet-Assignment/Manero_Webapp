@@ -1,12 +1,29 @@
 ﻿.start {
     background-color: #DBE3F5;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 7vh;
+    z-index: 1;
 }
 
 .pagination-circles {
-    z-index: 1;
+    z-index: 2;
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
 }
 
 .circle {
@@ -26,21 +43,6 @@
         background-color: white;
     }
 
-.start {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 7vh;
-}
-
 .big-manero-ring {
     z-index: 0;
     position: absolute;
@@ -49,17 +51,17 @@
 }
 
 .getstarted-title {
-    z-index: 1;
     font-size: 2.2rem;
+    z-index: 2;
 }
 
 .welcome-text {
-    z-index: 1;
     font-size: 1rem;
     text-align: center;
     color: gray;
     padding-top: 20px;
     padding-bottom: 20px;
+    z-index: 2;
 }
 
 .btn-main {
@@ -70,8 +72,7 @@
 }
 
 .get-started-btn {
-    z-index: 1;
     width: 80%;
     height: 50px;
+    z-index: 2;
 }
-
