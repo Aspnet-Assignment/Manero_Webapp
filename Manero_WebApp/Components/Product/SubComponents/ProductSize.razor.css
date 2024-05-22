@@ -28,6 +28,7 @@ h3 {
         opacity: 1;
         cursor: pointer;
         background-color: #dbe3f5;
+        transition: background-color 0.3s;
     }
 
 .prod-sizes a.unavailable {

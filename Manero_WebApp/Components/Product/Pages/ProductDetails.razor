@@ -9,10 +9,12 @@
     <div class="product-img">
         <img src="@Product?.ImageUrl" />
     </div>
+<ProdImgCarousel />
+    <div class="prod-bottom-border"></div>
 
-    <ProdImgCarousel />
+<div class="container">
 
-    <div class="container">
+    
     <div class="product-name">
         <ProductName Name="@Product?.Title"/>
         <AddToWishlist />
@@ -34,18 +36,22 @@
     <div class="product-color">
         <ProductColor @bind-SelectedColor="selectedColor" Colors="AvailableColors" AllColors="AllColors"/>
     </div>
-    <AddToCart OnAddToCart="AddToCart" IsDisabled="string.IsNullOrEmpty(selectedSize) || string.IsNullOrEmpty(selectedColor)" />
-
 
     <div class="product-description">
-        <h3>Long description for: @Product.LongDescription</h3>
-        <p>Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.</p>
+        <h3>Description</h3>
+        <p>@Product!.LongDescription</p>
     </div>
 
+    <div class="confirmation-message @messageClass">
+        Added @Product?.Title, @selectedColor, @selectedSize to cart.
+    </div>
     <div class="add-cart">
         <AddToCart OnAddToCart="AddToCart" IsDisabled="string.IsNullOrEmpty(selectedSize) || string.IsNullOrEmpty(selectedColor)"/>
     </div>
     
+    <div>
+        <ProductReview />
+    </div>
     </div>
     
 
@@ -63,6 +69,8 @@
     public string? selectedSize;
     public string? selectedColor;
     public int Quantity { get; set; } = 1;
+    private string messageClass = "";
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -80,7 +88,7 @@
         Quantity = newQuantity;
     }
 
-    private void AddToCart()
+    private async void AddToCart()
     {
         if (Product != null && !string.IsNullOrEmpty(selectedSize) && !string.IsNullOrEmpty(selectedColor))
         {
@@ -96,7 +104,22 @@
                 };
 
             CartService.AddToCart(cartItem);
+            await ShowConfirmationMessage();
         }
+    }
+
+    private async Task ShowConfirmationMessage()
+    {
+        messageClass = "show";
+
+        await Task.Delay(3000);
+        messageClass = "hide";
+        StateHasChanged();
+
+        await Task.Delay(500);
+        messageClass = "";
+        StateHasChanged();
+
     }
 
 }
