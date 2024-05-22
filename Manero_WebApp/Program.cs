@@ -4,7 +4,9 @@ using Manero_WebApp.Data;
 using Manero_WebApp.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +60,18 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
+//SignOut
+app.MapPost("/Logout", async (
+    ClaimsPrincipal user,
+    SignInManager<ApplicationUser> signInManager,
+    [FromForm] string returnUrl) =>
+{
+    await signInManager.SignOutAsync();
+    return TypedResults.LocalRedirect($"~/{returnUrl}");
+});
+
 
 app.UseHttpsRedirection();
 
