@@ -3,7 +3,10 @@
 @using Manero_WebApp.Components.Layout
 @using Manero_WebApp.Data
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Authorization
+@using Manero_WebApp.Components.Profile.Pages
+@inject NavigationManager NavigationManager
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject NavigationManager Navigation
@@ -74,7 +77,7 @@
             </div>
         </div>
 
-        <div class="button-row" @onclick="Logout">
+        <div class="button-row" @onclick="ShowModal">
             <div class="button-icon">
                 <img src="/images/profile/log_out.svg" />
             </div>
@@ -85,8 +88,39 @@
     </div>
 </section>
 
+<SignOutPopup IsVisible="isModalVisible" IsVisibleChanged="OnModalVisibilityChanged">
+    <h2>Are you sure you want to sign out?</h2>
+    <form action="/Logout" method="post">
+        <button type="submit">
+            <span aria-hidden="true"></span> Sure
+        </button>
+    </form>
+    <button @onclick="CloseModal">Cancel</button>
+</SignOutPopup>
+
 @code {
     private ApplicationUser user;
+
+    #region PopUp
+
+    private bool isModalVisible = false;
+
+    private void ShowModal()
+    {
+        isModalVisible = true;
+    }
+
+    private void CloseModal()
+    {
+        isModalVisible = false;
+    }
+
+    private void OnModalVisibilityChanged(bool value)
+    {
+        isModalVisible = value;
+    }
+
+    #endregion
 
     protected override async Task OnInitializedAsync()
     {
@@ -97,11 +131,5 @@
         {
             user = await UserManager.GetUserAsync(userPrincipal);
         }
-    }
-
-    private async Task Logout()
-    {
-        await SignInManager.SignOutAsync();
-        Navigation.NavigateTo("/");
     }
 }

@@ -62,15 +62,7 @@ else
 }
 
 
-//SignOut
-app.MapPost("/Logout", async (
-    ClaimsPrincipal user,
-    SignInManager<ApplicationUser> signInManager,
-    [FromForm] string returnUrl) =>
-{
-    await signInManager.SignOutAsync();
-    return TypedResults.LocalRedirect($"~/{returnUrl}");
-});
+
 
 
 app.UseHttpsRedirection();
@@ -85,5 +77,12 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
-
+//SignOut
+app.MapPost("/Logout", async (
+    ClaimsPrincipal user,
+    SignInManager<ApplicationUser> signInManager) =>
+{
+    await signInManager.SignOutAsync();
+    return TypedResults.LocalRedirect("/producthome");
+});
 app.Run();
