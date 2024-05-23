@@ -107,7 +107,7 @@
         public bool TermsAndConditions { get; set; }
 
     }
-    
+
     private IEnumerable<IdentityError>? identityErrors;
 
     [SupplyParameterFromForm]
@@ -121,27 +121,25 @@
     public async Task RegisterUser(EditContext editContext)
     {
         var user = new ApplicationUser
-            {
-                FirstName = Input.FirstName,
-                LastName = Input.FirstName,
-                UserName = Input.Email,
-                Email = Input.Email
-            };
-        
+        {
+            FirstName = Input.FirstName,
+            LastName = Input.FirstName,
+            UserName = Input.Email,
+            Email = Input.Email
+        };
+
         var result = await UserManager.CreateAsync(user, Input.Password);
 
         if (!result.Succeeded)
             return;
 
-        
+
 
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
-            RedirectManager.RedirectTo(
-                await http.PostAsJsonAsync<RegisterFormModel>("http://localhost:7050/api/GenerateVerificationCodeUseingHttp", Input )
-                RedirectManager.RedirectTo("Account/RegisterConfirmation", new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl })
-                //"Account/RegisterConfirmation",
-                //new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+            await http.PostAsJsonAsync<RegisterFormModel>("http://localhost:7050/api/GenerateVerificationCodeUseingHttp", Input);
+            RedirectManager.RedirectTo("Account/RegisterConfirmation", new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+            
         }
 
         await SignInManager.SignInAsync(user, isPersistent: false);
@@ -151,3 +149,4 @@
 
     
 }
+
