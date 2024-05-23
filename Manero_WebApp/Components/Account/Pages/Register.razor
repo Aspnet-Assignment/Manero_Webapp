@@ -14,6 +14,9 @@
 @inject ILogger<Register> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+@inject HttpClient http
+
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script>tailwind.config {theme: colors: {white: '#FFFFFF' black: '#111111'} {screens: {'sm': '640px', 'md': '768px', 'lg': '1024px', 'xl': '1280px', '2xl': '1536px',</script>
 
@@ -21,7 +24,7 @@
 
 <div class="text-center">
     <div class="flex justify-center mt-5">
-    <img class="" src="../../Images/rectangle.png" alt="">
+    <img class="lg:hidden" src="../../Images/rectangle.png" alt="">
     </div>
     
     <div class="">
@@ -130,17 +133,15 @@
         if (!result.Succeeded)
             return;
 
-        var userId = await UserManager.GetUserIdAsync(user);
         
-        // var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-        //     NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
-        //     new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
 
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
             RedirectManager.RedirectTo(
-                "Account/RegisterConfirmation",
-                new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+                await http.PostAsJsonAsync<RegisterFormModel>("http://localhost:7050/api/GenerateVerificationCodeUseingHttp", Input )
+                RedirectManager.RedirectTo("Account/RegisterConfirmation", new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl })
+                //"Account/RegisterConfirmation",
+                //new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
         }
 
         await SignInManager.SignInAsync(user, isPersistent: false);
