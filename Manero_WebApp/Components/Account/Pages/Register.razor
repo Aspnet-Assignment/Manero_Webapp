@@ -33,32 +33,41 @@
             <DataAnnotationsValidator />
             <h1 class="font-semibold text-2xl mb-5 mt-2">Sign Up</h1>
             
-            <ValidationSummary class="text-danger" role="alert" />
-            <div class="grid justify-center">
-                <label class="grid justify-start ml-8" for="firstname">First Name</label>
+            <div class="grid justify-center mt-4">
+                <div class="relative">
+                <label class="absolute -top-3 left-5 px-1 bg-white font-light" for="firstname">First Name</label>
                 <InputText @bind-Value="Input.FirstName" class="border rounded-full w-96 h-10 p-4" autocomplete="username" aria-required="true"/>
-                <ValidationMessage For="() => Input.FirstName" class="text-danger" />
+                </div>
             </div>
-            <div class="grid justify-center">
-                <label class="grid justify-start ml-8 " for="lastname">Last Name</label>
+            <ValidationMessage For="() => Input.FirstName" class="text-danger" />
+            <div class="grid justify-center mt-4">
+                <div class="relative">
+                <label class="absolute -top-3 left-5 px-1 bg-white font-light" for="lastname">Last Name</label>
                 <InputText @bind-Value="Input.LastName" class="border rounded-full w-96 h-10 p-4" autocomplete="username" aria-required="true" />
-                <ValidationMessage For="() => Input.LastName" class="text-danger" />
+                </div>
             </div>
-            <div class="grid justify-center">
-                <label class="grid justify-start ml-8 " for="email">Email</label>
+            <ValidationMessage For="() => Input.LastName" class="text-danger" />
+            <div class="grid justify-center mt-4">
+                <div class="relative">
+                <label class="absolute -top-3 left-5 px-1 bg-white font-light" for="email">Email</label>
                 <InputText @bind-Value="Input.Email" class="border rounded-full w-96 h-10 p-4" autocomplete="username" aria-required="true" />
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
+                </div>
             </div>
-            <div class="grid justify-center">
-                <label class="grid justify-start ml-8 " for="password">Password</label>
+            <ValidationMessage For="() => Input.Email" class="text-danger" />
+            <div class="grid justify-center mt-4">
+                <div class="relative">
+                <label class="absolute -top-3 left-5 px-1 bg-white font-light" for="password">Password</label>
                 <InputText type="password" @bind-Value="Input.Password" class="border rounded-full w-96 h-10 p-4" autocomplete="new-password" aria-required="true" />
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
+                </div>
             </div>
-            <div class="grid justify-center">
-                <label class="grid justify-start ml-8 " for="confirm-password">Confirm Password</label>
+            <ValidationMessage For="() => Input.Password" class="text-danger" />
+            <div class="grid justify-center mt-4">
+                <div class="relative">
+                <label class="absolute -top-3 left-5 px-1 bg-white font-light" for="confirm-password">Confirm Password</label>
                 <InputText type="password" @bind-Value="Input.ConfirmPassword" class="border rounded-full w-96 h-10 p-4" autocomplete="new-password" aria-required="true" />
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+                </div>
             </div>
+            <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
             <div>
                 <div>
                     <InputCheckbox @bind-Value="Input.TermsAndConditions" />

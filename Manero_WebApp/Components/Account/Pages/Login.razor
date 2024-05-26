@@ -15,7 +15,7 @@
 <PageTitle>Log in</PageTitle>
 <div class="text-center">
     <div class="flex justify-center mt-5">
-     <img class="" src="../../Images/rectangle.png" alt="">
+     <img class="lg:hidden" src="../../Images/rectangle.png" alt="">
     </div>
     <div class="">
         <StatusMessage Message="@errorMessage" />
@@ -23,17 +23,21 @@
             <DataAnnotationsValidator />
             <h1 class="font-semibold text-2xl mt-2">Welcome Back!</h1>
             <p class="mb-10">Sign in to continue</p>
-            <div class="grid justify-center">
-                <label class="grid justify-start ml-8 " for="email">Email</label>
+            <div class="grid justify-center mt-4">
+                <div class="relative">
+                <label class="absolute -top-3 left-5 px-1 bg-white font-light" for="email">Email</label>
                 <InputText @bind-Value="Input.Email" class="border rounded-full w-96 h-10 p-4" autocomplete="username" aria-required="true" />
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
+                </div>
             </div>
-            <div class="grid justify-center">
-                <label class="grid justify-start ml-8 " for="password">Password</label>
+            <ValidationMessage For="() => Input.Email" class="text-danger" />
+            <div class="grid justify-center mt-4">
+                <div class="relative">
+                <label class="absolute -top-3 left-5 px-1 bg-white font-light" for="password">Password</label>
                 <InputText type="password" @bind-Value="Input.Password" class="border rounded-full w-96 h-10 p-4" autocomplete="new-password" aria-required="true" />
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
+                </div>
             </div>
-            <div class="checkbox mb-3">
+            <ValidationMessage For="() => Input.Password" class="text-danger" />
+            <div class="checkbox mb-3 mt-4">
                 <label class="form-label">
                     <InputCheckbox @bind-Value="Input.RememberMe" class="darker-border-checkbox form-check-input" />
                     Remember me
