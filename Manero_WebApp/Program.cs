@@ -23,6 +23,13 @@ builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAu
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<CartService>();
 
+builder.Services.AddAuthentication().AddFacebook(x =>
+{
+    x.AppId = builder.Configuration["FacebookAppId"]!;
+    x.AppSecret = builder.Configuration["FacebookAppSecret"]!;
+});
+
+
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
