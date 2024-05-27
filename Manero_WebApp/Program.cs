@@ -1,9 +1,12 @@
 using Manero_WebApp.Components;
 using Manero_WebApp.Components.Account;
 using Manero_WebApp.Data;
+using Manero_WebApp.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +15,20 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddHttpClient();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
+builder.Services.AddSingleton<ProductService>();
+builder.Services.AddSingleton<CartService>();
+
+builder.Services.AddAuthentication().AddFacebook(x =>
+{
+    x.AppId = builder.Configuration["FacebookAppId"]!;
+    x.AppSecret = builder.Configuration["FacebookAppSecret"]!;
+});
+
 
 builder.Services.AddAuthentication(options =>
     {
@@ -56,6 +69,10 @@ else
     app.UseHsts();
 }
 
+
+
+
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
@@ -68,5 +85,12 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
-
+//SignOut
+app.MapPost("/Logout", async (
+    ClaimsPrincipal user,
+    SignInManager<ApplicationUser> signInManager) =>
+{
+    await signInManager.SignOutAsync();
+    return TypedResults.LocalRedirect("/producthome");
+});
 app.Run();

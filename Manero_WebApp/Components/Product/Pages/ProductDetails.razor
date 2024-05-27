@@ -1,0 +1,125 @@
+﻿@page "/product/{productId}"
+
+@inject ProductService ProductService
+@inject CartService CartService
+@rendermode InteractiveServer
+
+<link rel="stylesheet" href="_ProductDetails.razor.css" />
+
+    <div class="product-img">
+        <img src="@Product?.ImageUrl" />
+    </div>
+<ProdImgCarousel />
+    <div class="prod-bottom-border"></div>
+
+<div class="container">
+
+    
+    <div class="product-name">
+        <ProductName Name="@Product?.Title"/>
+        <AddToWishlist />
+    </div>
+
+    <div class="product-rating">
+        <ProductRating />
+    </div>
+    
+    <div class="product-price">
+        <ProductPrice Price="@Product!.Price" />
+        <ProductQuantity Quantity="@Quantity" QuantityChanged="OnQuantityChanged" />
+    </div>
+
+    <div class="product-size">
+        <ProductSize @bind-SelectedSize="selectedSize" Sizes="AvailableSizes" AllSizes="AllSizes" />
+    </div>
+
+    <div class="product-color">
+        <ProductColor @bind-SelectedColor="selectedColor" Colors="AvailableColors" AllColors="AllColors"/>
+    </div>
+
+    <div class="product-description">
+        <h3>Description</h3>
+        <p>@Product!.LongDescription</p>
+    </div>
+
+    <div class="confirmation-message @messageClass">
+        Added @Product?.Title, @selectedColor, @selectedSize to cart.
+    </div>
+    <div class="add-cart">
+        <AddToCart OnAddToCart="AddToCart" IsDisabled="string.IsNullOrEmpty(selectedSize) || string.IsNullOrEmpty(selectedColor)"/>
+    </div>
+    
+    <div>
+        <ProductReview />
+    </div>
+    </div>
+    
+
+
+@code {
+    [Parameter]
+    public string? productId { get; set; }
+
+    public ProductEntity? Product { get; set; }
+
+    public List<string> AvailableSizes { get; set; } = new();
+    public List<string> AvailableColors { get; set; } = new();
+    public List<string> AllSizes { get; set; } = new() { "XS", "S", "M", "L", "XL", "XXL" };
+    public List<string> AllColors { get; set; } = new() { "Red", "LightBlue", "Beige", "DarkBlue","Black" };
+    public string? selectedSize;
+    public string? selectedColor;
+    public int Quantity { get; set; } = 1;
+    private string messageClass = "";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Product = await ProductService.GetAllProductByIdAsync(productId!);
+        if (Product != null)
+        {
+            var relatedProducts = await ProductService.GetProductsBytTitleAndBatchAsync(Product.Title, Product.BatchNumber);
+            AvailableSizes = relatedProducts.Select(x => x.Size).Distinct().ToList();
+            AvailableColors = relatedProducts.Select(x => x.Color).Distinct().ToList();
+        }
+    }
+
+    private void OnQuantityChanged(int newQuantity)
+    {
+        Quantity = newQuantity;
+    }
+
+    private async void AddToCart()
+    {
+        if (Product != null && !string.IsNullOrEmpty(selectedSize) && !string.IsNullOrEmpty(selectedColor))
+        {
+            var cartItem = new CartItem
+                {
+                    ProductId = Product.Id,
+                    Title = Product.Title,
+                    Price = Product.Price,
+                    Size = selectedSize,
+                    Color = selectedColor,
+                    Quantity = Quantity,
+                    ImageUrl = "/images/home/clothes-1.jpg"
+                };
+
+            CartService.AddToCart(cartItem);
+            await ShowConfirmationMessage();
+        }
+    }
+
+    private async Task ShowConfirmationMessage()
+    {
+        messageClass = "show";
+
+        await Task.Delay(3000);
+        messageClass = "hide";
+        StateHasChanged();
+
+        await Task.Delay(500);
+        messageClass = "";
+        StateHasChanged();
+
+    }
+
+}

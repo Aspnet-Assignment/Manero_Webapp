@@ -1,5 +1,59 @@
-﻿<h3>Order</h3>
+﻿@page "/order"
+@inject NavigationManager NavigationManager
+
+<div class="products">
+    <div class="product">
+        <div class="prodimg">
+            <h7 class="sale">SALE</h7>
+            <img src="/Images/Home/clothes-1.jpg" />
+        </div>
+        <div class="info">
+            <p class="prodDetails">Shirt</p>
+            <p class="price">$30.00</p>
+            <p class="size">Size: M</p>
+            <p color>Color: Black</p>
+        </div>
+
+        <div class="quantity">
+        </div>
+    </div>
+</div>
+
+<div class="summary">
+    <p>Promocode applied</p>
+    <i class="fa-solid fa-check"></i>
+
+    <div class="subtotal">
+        <h5>Subtotal</h5>
+        <h5>$30.00</h5>
+    </div>
+    <div class="discount">
+        <p>Discount</p>
+        <p>$0.00</p>
+    </div>
+    <div class="delivery">
+        <p>Delivery</p>
+        <p>Free</p>
+    </div>
+</div>
+
+<div>
+    <form action="/Logout" method="post">
+        <AntiforgeryToken />
+        <input type="hidden" name="returnUrl" value="@currentUrl" />
+        <button type="submit">
+            <span aria-hidden="true"></span> Logout
+        </button>
+    </form>
+</div>
+
+
 
 @code {
+    private string currentUrl;
 
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+    }
 }

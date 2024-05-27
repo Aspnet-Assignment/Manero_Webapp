@@ -34,3 +34,8 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
   border-color: #929292;
 }
+
+.product-card a {
+    text-decoration: none;
+    color: inherit;
+}

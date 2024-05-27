@@ -90,3 +90,9 @@ h1 {
     background: none;
     font-size: 16px;
 }
+
+@media (min-width: 1025px) {
+    header {
+        display: none;
+    }
+}

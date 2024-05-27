@@ -1,4 +1,8 @@
-﻿nav {
+﻿body{
+   margin-bottom: 70px;
+}
+
+nav {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,7 +12,6 @@
     background-color: white; 
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1); 
     z-index: 200;
-    margin-top: 200px;
 }
 
 .nav-links {
@@ -31,10 +34,22 @@ i {
     color: black;
 }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 ::deep .active {
     background-color: #DBE3F5;
     border-radius: 50%;
     display: inline-block;
     box-sizing: content-box;
+}
+
+@media (min-width: 1025px) {
+    nav {
+        display: none;
+    }
 }
