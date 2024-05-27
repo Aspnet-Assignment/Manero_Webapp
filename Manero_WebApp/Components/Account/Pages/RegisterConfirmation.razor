@@ -58,7 +58,7 @@
     private async void HandleSubmit()
     {
         Form.Email = Email;
-        var result = await http.PostAsJsonAsync<VerificationForm>("", Form);
+        var result = await http.PostAsJsonAsync<VerificationForm>("http://localhost:7050/api/validate", Form);
         if (result.IsSuccessStatusCode)
         {
             var user = await UserManager.FindByEmailAsync(Email!);
