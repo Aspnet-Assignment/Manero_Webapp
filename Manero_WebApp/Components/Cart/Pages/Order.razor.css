@@ -13,6 +13,30 @@
     margin: 0 1rem;
 }
 
+.info-quantity {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.quantity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.circle {
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #DBE3F5;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 20px;
+}
+
 .sale {
     position: absolute;
     color: #FFFFFF;
