@@ -1,116 +1,52 @@
 ﻿using Manero_WebApp.Models;
 
+
 namespace Manero_WebApp.Services;
 
 public class ProductService
 {
+    private readonly HttpClient _httpClient;
+    private readonly ILogger<ProductService> _logger;
 
-    private List<Product> Products = new List<Product>
+    public ProductService(HttpClient httpClient, ILogger<ProductService> logger)
     {
-        new Product
+        _httpClient = httpClient;
+        _logger = logger;
+    }
+
+    public async Task<List<ProductEntity>> GetAllProductsAsync()
+    {
+        var products = await _httpClient.GetFromJsonAsync<List<ProductEntity>>("https://manero-products-fa.azurewebsites.net/api/products/all");
+        return products ?? new List<ProductEntity>();
+    }
+
+    public async Task<ProductEntity?> GetAllProductByIdAsync(string productId)
+    {
+        var response = await _httpClient.GetAsync($"https://manero-products-fa.azurewebsites.net/api/products/{productId}");
+        if (!response.IsSuccessStatusCode)
         {
-            Id = 1,
-            Name = "Test 1",
-            Sizes = new List<string> { "XS", "S", "M", "L", "XL", "XXL"},
-            Color = new List<string> { "Red", "LightBlue", "Beige", "DarkBlue", "Black"},
-            Rating = 4,
-            Price = 799,
-            Description = "Test 1"
-        },
-        new Product
-        {
-            Id = 2,
-            Name = "Test 2",
-            Sizes = new List<string> { "XS", "S", "M", "L", "XL", "XXL"},
-            Color = new List<string> { "Red", "LightBlue", "Beige", "DarkBlue", "Black"},
-            Rating = 5,
-            Price = 1000,
-            Description = "Test 2"
+            _logger.LogError($"Failed to fetch product with id {productId}. Status Code: {response.StatusCode}");
+            return null;
         }
-    };
 
-    private List<ProductEntity> AllProducts = new List<ProductEntity>
-    {
-        new ProductEntity
-        {
-            Id = "1",
-            BatchNumber = "Batch001",
-            Title = "T-shirt",
-            ShortDescription = "Short Description t1",
-            LongDescription = "Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.",
-            Categories = new List<string> { "T-shirt", "Shirt"},
-            Color = "LightBlue",
-            Size = "M",
-            Price = 799,
-            ImageUrl = "https://imgsamanero23.blob.core.windows.net/product-img/t-shirt_black.webp"
-        },
-        new ProductEntity
-        {
-            Id = "2",
-            BatchNumber = "Batch007",
-            Title = "Jeans",
-            ShortDescription = "Short Description t2",
-            LongDescription = "Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.",
-            Categories = new List<string> { "Pants", "Jeans"},
-            Color = "DarkBlue",
-            Size = "L",
-            Price = 1799,
-            ImageUrl = "https://imgsamanero23.blob.core.windows.net/product-img/jeans_blue.webp"
-        },
+        var productJson = await response.Content.ReadAsStringAsync();
+        _logger.LogInformation($"Product JSON: {productJson}");
 
-        new ProductEntity
+        var product = await response.Content.ReadFromJsonAsync<ProductEntity>();
+        if (product == null)
         {
-            Id = "3",
-            BatchNumber = "Batch007",
-            Title = "Jeans",
-            ShortDescription = "Short Description t2",
-            LongDescription = "Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.",
-            Categories = new List<string> { "Pants", "Jeans"},
-            Color = "Beige",
-            Size = "M",
-            Price = 1799,
-            ImageUrl = "https://imgsamanero23.blob.core.windows.net/product-img/jeans_blue.webp"
-        },
-        
-        new ProductEntity
-        {
-            Id = "4",
-            BatchNumber = "Batch007",
-            Title = "Jeans",
-            ShortDescription = "Short Description t2",
-            LongDescription = "Amet amet Lorem eu consectetur in deserunt nostrud dolor culpa ad sint amet. Nostrud deserunt consectetur culpa minim mollit veniam aliquip pariatur exercitation ullamco ea voluptate et. Pariatur ipsum mollit magna proident nisi ipsum.",
-            Categories = new List<string> { "Pants", "Jeans"},
-            Color = "LightBlue",
-            Size = "S",
-            Price = 1799,
-            ImageUrl = "https://imgsamanero23.blob.core.windows.net/product-img/jeans_blue.webp"
+            _logger.LogError($"Product with id {productId} not found.");
         }
-    };
 
-    public Task<List<Product>> GetProductsAsync()
-    {
-        return Task.FromResult(Products);
-    }
-    public Task<Product?> GetProductByIdAsync(int productId)
-    {
-        var product = Products.FirstOrDefault(x => x.Id == productId);
-        return Task.FromResult(product);
+        return product;
     }
 
-    public Task<List<ProductEntity>> GetAllProductsAsync()
+    public async Task<List<ProductEntity>> GetProductsBytTitleAndBatchAsync(string title, string batchNumber)
     {
-        return Task.FromResult(AllProducts);
-    }
-
-    public Task<ProductEntity?> GetAllProductByIdAsync(string productId)
-    {
-        var product = AllProducts.FirstOrDefault(x => x.Id == productId);
-        return Task.FromResult(product);
-    }
-
-    public Task<List<ProductEntity>> GetProductsBytTitleAndBatchAsync(string title, string batchNumber)
-    {
-        var products = AllProducts.Where(x => x.Title == title && x.BatchNumber == batchNumber).ToList();
-        return Task.FromResult(products);
+        var products = await GetAllProductsAsync();
+        var filteredProducts = products
+            .Where(f => f.Title == title && f.BatchNumber == batchNumber)
+            .ToList();
+        return filteredProducts;
     }
 }

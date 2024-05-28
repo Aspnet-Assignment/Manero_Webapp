@@ -19,11 +19,22 @@
 
     }
 
+    .detail-carousel {
+        display: none;
+    }
+
     .prod-bottom-border {
-        border-bottom: 2px solid #dbe3f5;
-        width: 600px;
-        margin-left: auto;
-        margin-right: auto;
+    }
+
+    .big-screen-details {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        margin-top: 40px;
+    }
+
+    .right-view-bscreen {
+        margin-top: 30px;
     }
 }
 
