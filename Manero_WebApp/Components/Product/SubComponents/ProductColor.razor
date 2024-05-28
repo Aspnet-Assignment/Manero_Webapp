@@ -24,13 +24,13 @@
     public string? SelectedColor { get; set; }
 
     [Parameter]
-    public EventCallback<string> SelectedColorChanged { get; set; }
+    public EventCallback<string> OnColorChanged { get; set; }
 
     private async Task SelectColor(string color)
     {
         if (!Colors.Contains(color)) return;
         SelectedColor = color;
-        await SelectedColorChanged.InvokeAsync(color);
+        await OnColorChanged.InvokeAsync(color);
     }
 
     private string GetColorClass(string color)
@@ -45,4 +45,5 @@
             _ => string.Empty
         };
     }
+
 }

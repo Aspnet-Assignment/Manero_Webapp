@@ -1,6 +1,6 @@
 ﻿.product-content {
     margin-top: 70px;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 }
 
 .products-text {
@@ -29,12 +29,13 @@
     }
 
 
-.product-grid {
+.product-list {
     display: flex;
-    overflow: auto;
-    white-space: nowrap;
+    overflow-x: auto;
+    gap: 15px;
 }
 
-    .product-grid::-webkit-scrollbar {
-        display: none;
-    }
+button {
+    border: none;
+    background-color: inherit;
+}
