@@ -3,16 +3,10 @@
 
 namespace Manero_WebApp.Services;
 
-public class ProductService
+public class ProductService(HttpClient httpClient, ILogger<ProductService> logger)
 {
-    private readonly HttpClient _httpClient;
-    private readonly ILogger<ProductService> _logger;
-
-    public ProductService(HttpClient httpClient, ILogger<ProductService> logger)
-    {
-        _httpClient = httpClient;
-        _logger = logger;
-    }
+    private readonly HttpClient _httpClient = httpClient;
+    private readonly ILogger<ProductService> _logger = logger;
 
     public async Task<List<ProductEntity>> GetAllProductsAsync()
     {
@@ -41,11 +35,11 @@ public class ProductService
         return product;
     }
 
-    public async Task<List<ProductEntity>> GetProductsBytTitleAndBatchAsync(string title, string batchNumber)
+    public async Task<List<ProductEntity>> GetProductsByShortDescriptionAndBatchAsync(string shortDescription, string batchNumber)
     {
         var products = await GetAllProductsAsync();
         var filteredProducts = products
-            .Where(f => f.Title == title && f.BatchNumber == batchNumber)
+            .Where(f => f.ShortDescription == shortDescription && f.BatchNumber == batchNumber)
             .ToList();
         return filteredProducts;
     }

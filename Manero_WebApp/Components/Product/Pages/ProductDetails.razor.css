@@ -46,7 +46,15 @@
 
     .prod-bottom-border {
         border-bottom: 2px solid #dbe3f5;
-       
+
+    }
+
+    .detail-carousel {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 30px;
+        margin-top: 20px;
     }
 }
 

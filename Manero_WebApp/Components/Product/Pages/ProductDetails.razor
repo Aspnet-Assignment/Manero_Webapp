@@ -138,7 +138,7 @@
         if (Product != null)
         {
             ImageUrl = Product.ImageUrl;
-            var relatedProducts = await ProductService.GetProductsBytTitleAndBatchAsync(Product.Title, Product.BatchNumber);
+            var relatedProducts = await ProductService.GetProductsByShortDescriptionAndBatchAsync(Product.ShortDescription!, Product.BatchNumber);
             AvailableSizes = relatedProducts.Select(x => x.Size).Distinct().ToList();
             AvailableColors = relatedProducts.Select(x => x.Color).Distinct().ToList();
         }
@@ -249,7 +249,7 @@
     {
         if (Product != null && !string.IsNullOrEmpty(selectedColor))
         {
-            var relatedProducts = await ProductService.GetProductsBytTitleAndBatchAsync(Product.Title, Product.BatchNumber);
+            var relatedProducts = await ProductService.GetProductsByShortDescriptionAndBatchAsync(Product.ShortDescription!, Product.BatchNumber);
             var relatedProduct = relatedProducts.FirstOrDefault(p => p.Color == selectedColor);
             if (relatedProduct != null)
             {
