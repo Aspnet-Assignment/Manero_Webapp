@@ -27,7 +27,7 @@ else
     {
         var products = await ProductService.GetAllProductsAsync();
         AllProducts = products
-            .GroupBy(x => x.Title)
+            .GroupBy(x => x.ShortDescription)
             .Select(g =>
             {
                 var representative = g.First();

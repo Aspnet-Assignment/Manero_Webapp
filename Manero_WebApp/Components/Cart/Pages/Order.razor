@@ -1,21 +1,29 @@
 ﻿@page "/order"
 @inject NavigationManager NavigationManager
 
+
 <div class="products">
     <div class="product">
         <div class="prodimg">
             <h7 class="sale">SALE</h7>
             <img src="/Images/Home/clothes-1.jpg" />
         </div>
-        <div class="info">
-            <p class="prodDetails">Shirt</p>
-            <p class="price">$30.00</p>
-            <p class="size">Size: M</p>
-            <p color>Color: Black</p>
+
+        <div class="info-quantity">
+            <div class="info">
+                <p class="prodDetails">Shirt</p>
+                <p class="price">$30.00</p>
+                <p class="size">Size: M</p>
+                <p color>Color: Black</p>
+            </div>
+
+            <div class="quantity">
+                <button class="plus circle" @onclick="IncreaseQuantity"><i class="fa-solid fa-plus"></i></button>
+                <p class="quantityNumber">@quantity</p>
+                <button class="minus circle" @onclick="DecreaseQuantity"><i class="fa-solid fa-minus"></i></button>
+            </div>
         </div>
 
-        <div class="quantity">
-        </div>
     </div>
 </div>
 
@@ -37,23 +45,24 @@
     </div>
 </div>
 
-<div>
-    <form action="/Logout" method="post">
-        <AntiforgeryToken />
-        <input type="hidden" name="returnUrl" value="@currentUrl" />
-        <button type="submit">
-            <span aria-hidden="true"></span> Logout
-        </button>
-    </form>
-</div>
-
-
 
 @code {
-    private string currentUrl;
+    private int quantity = 1;
 
-    protected override void OnInitialized()
+    private void IncreaseQuantity()
     {
-        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        quantity++;
+        Console.WriteLine($"IncreaseQuantity called, new quantity: {quantity}");
+        StateHasChanged();
+    }
+
+    private void DecreaseQuantity()
+    {
+        if (quantity > 1)
+        {
+            quantity--;
+            Console.WriteLine($"DecreaseQuantity called, new quantity: {quantity}");
+            StateHasChanged();
+        }
     }
 }
