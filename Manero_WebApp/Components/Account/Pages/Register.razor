@@ -146,7 +146,7 @@
 
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
-            await http.PostAsJsonAsync<RegisterFormModel>("http://localhost:7050/api/GenerateVerificationCodeUseingHttp", Input);
+            await http.PostAsJsonAsync<RegisterFormModel>("http://localhost:7001/api/GenerateVerificationCodeUseingHttp", Input);
             RedirectManager.RedirectTo("Account/RegisterConfirmation", new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
             
         }
