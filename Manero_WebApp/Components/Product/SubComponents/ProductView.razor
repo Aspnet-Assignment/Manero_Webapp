@@ -1,5 +1,4 @@
-﻿@using Manero_WebApp.Models
-@inject NavigationManager NavigationManager
+﻿@inject NavigationManager NavigationManager
 @inject CartService CartService
 @rendermode InteractiveServer
 
@@ -15,7 +14,7 @@
     [Parameter]
     public ProductEntity? Product { get; set; }
 
-    private string ProductImage => "/images/home/clothes-1.jpg"; 
+    // private string ProductImage => "/images/home/clothes-1.jpg"; 
 
     private void NavigateToProduct()
     {

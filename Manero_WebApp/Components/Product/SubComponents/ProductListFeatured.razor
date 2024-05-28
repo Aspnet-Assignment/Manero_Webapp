@@ -1,37 +1,24 @@
-﻿@inject ProductService ProductService
-@inject NavigationManager NavigationManager
+﻿@page "/featured_products"
+@inject ProductService ProductService
 
-@rendermode InteractiveServer
+<link rel="stylesheet" href="ProductListBest.razor.css" />
 
-<link rel="stylesheet" href="ProductSideScrollBestSeller.razor.css" />
+<div class="container">
+    <h3>Featured Products</h3>
 
-
-<div class="product-content">
-    <div class="products-text">
-        <h2>Best sellers</h2>
-        <div class="products-all">
-            <button @onclick="NavigateToBestSellerProducts">
-                <a>view all <i class="fa-solid fa-chevron-right"></i></a>
-            </button>
-            
-        </div>
-    </div>
-
-    <div class="product-list">
     @if (AllProducts == null)
     {
         <p>Loading...</p>
     }
     else
     {
-        
+        <div class="product-list">
             @foreach (var product in AllProducts)
             {
-                <ProductCard Product="product" />
+                <ProductView Product="product" />
             }
-        
+        </div>
     }
-    </div>
 </div>
 @code {
     private List<ProductEntity>? AllProducts { get; set; }
@@ -41,6 +28,7 @@
         var products = await ProductService.GetAllProductsAsync();
         AllProducts = products
             .GroupBy(x => x.ShortDescription)
+            .OrderBy(g => g.Key![0])
             .Select(g =>
             {
                 var representative = g.First();
@@ -49,10 +37,5 @@
                 return representative;
             })
             .ToList();
-    }
-
-    private void NavigateToBestSellerProducts()
-    {
-        NavigationManager.NavigateTo("/bestseller_products");
     }
 }
