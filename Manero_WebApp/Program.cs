@@ -1,7 +1,9 @@
+using IdentityModel;
 using Manero_WebApp.Components;
 using Manero_WebApp.Components.Account;
 using Manero_WebApp.Data;
 using Manero_WebApp.Services;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +25,22 @@ builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAu
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<CartService>();
 
-builder.Services.AddAuthentication().AddFacebook(x =>
+builder.Services.AddAuthentication().AddFacebook(options =>
 {
-    x.AppId = builder.Configuration["FacebookAppId"]!;
-    x.AppSecret = builder.Configuration["FacebookAppSecret"]!;
+    options.AppId = builder.Configuration["FacebookAppId"]!;
+    options.AppSecret = builder.Configuration["FacebookAppSecret"]!;
+    options.Fields.Add("picture");
+    options.Events = new OAuthEvents
+    {
+        OnCreatingTicket = context =>
+        {
+            var identity = (ClaimsIdentity)context.Principal.Identity;
+            var profileImg = context.User.GetProperty("picture").GetProperty("data").GetProperty("url").ToString();
+            identity.AddClaim(new Claim(JwtClaimTypes.Picture, profileImg));
+            return Task.CompletedTask;
+        }
+    };
+
 });
 
 
