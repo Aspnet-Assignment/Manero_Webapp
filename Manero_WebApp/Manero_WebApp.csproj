@@ -19,6 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Manero_WebApp.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\Images\Home\" />
     <Folder Include="wwwroot\Images\Profile\" />
     <Folder Include="wwwroot\Images\Welcome\" />
