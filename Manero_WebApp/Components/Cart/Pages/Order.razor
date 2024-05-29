@@ -1,6 +1,6 @@
 ﻿@page "/order"
 @inject NavigationManager NavigationManager
-
+@rendermode InteractiveServer
 
 <div class="products">
     <div class="product">
@@ -12,7 +12,7 @@
         <div class="info-quantity">
             <div class="info">
                 <p class="prodDetails">Shirt</p>
-                <p class="price">$30.00</p>
+                <p class="price">$@basePrice</p>
                 <p class="size">Size: M</p>
                 <p color>Color: Black</p>
             </div>
@@ -33,7 +33,7 @@
 
     <div class="subtotal">
         <h5>Subtotal</h5>
-        <h5>$30.00</h5>
+        <h5>$@totalPrice</h5>
     </div>
     <div class="discount">
         <p>Discount</p>
@@ -48,11 +48,15 @@
 
 @code {
     private int quantity = 1;
+    private double basePrice = 30.00;
+    private double totalPrice;
+
+
 
     private void IncreaseQuantity()
     {
         quantity++;
-        Console.WriteLine($"IncreaseQuantity called, new quantity: {quantity}");
+        totalPrice = basePrice * quantity;
         StateHasChanged();
     }
 
@@ -61,7 +65,7 @@
         if (quantity > 1)
         {
             quantity--;
-            Console.WriteLine($"DecreaseQuantity called, new quantity: {quantity}");
+            totalPrice = basePrice * quantity;
             StateHasChanged();
         }
     }
