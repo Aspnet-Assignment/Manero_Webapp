@@ -168,7 +168,7 @@
                 // }
 
                 await SignInManager.SignInAsync(user, isPersistent: false, externalLoginInfo.LoginProvider);
-                RedirectManager.RedirectTo(ReturnUrl);
+                RedirectManager.RedirectTo("/producthome");
             }
         }
 

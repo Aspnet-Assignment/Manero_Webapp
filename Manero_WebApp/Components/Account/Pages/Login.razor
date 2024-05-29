@@ -83,7 +83,7 @@
         if (result.Succeeded)
         {
             Logger.LogInformation("User logged in.");
-            RedirectManager.RedirectTo(ReturnUrl);
+            RedirectManager.RedirectTo("/producthome");
         }
         else if (result.RequiresTwoFactor)
         {
