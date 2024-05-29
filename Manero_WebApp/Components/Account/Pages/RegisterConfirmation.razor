@@ -23,7 +23,7 @@
     <p>We received a request to sign in to your account using e-mail @Email</p>
 
     <div>
-        <h4>PLease enter the verification code</h4>
+        <h4>Please enter the verification code</h4>
         <EditForm FormName="verification" Model="Form" OnValidSubmit="HandleSubmit">
             <InputText @bind-Value="Form.Code" />
             <button>Verify</button>
@@ -58,7 +58,7 @@
     private async void HandleSubmit()
     {
         Form.Email = Email;
-        var result = await http.PostAsJsonAsync<VerificationForm>("http://localhost:7050/api/validate", Form);
+        var result = await http.PostAsJsonAsync<VerificationForm>("http://localhost:7001/api/validate", Form);
         if (result.IsSuccessStatusCode)
         {
             var user = await UserManager.FindByEmailAsync(Email!);

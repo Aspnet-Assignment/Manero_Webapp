@@ -29,12 +29,13 @@
     }
 
 
-.product-grid {
+.product-list {
     display: flex;
-    overflow: auto;
-    white-space: nowrap;
+    overflow-x: auto;
+    gap: 15px;
 }
 
-    .product-grid::-webkit-scrollbar {
-        display: none;
-    }
+button {
+    border: none;
+    background-color: inherit;
+}

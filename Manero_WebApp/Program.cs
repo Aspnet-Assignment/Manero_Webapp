@@ -1,7 +1,9 @@
+using IdentityModel;
 using Manero_WebApp.Components;
 using Manero_WebApp.Components.Account;
 using Manero_WebApp.Data;
 using Manero_WebApp.Services;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,6 +18,13 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient<ProductService>(client =>
+{
+    client.BaseAddress = new Uri("https://manero-products-fa.azurewebsites.net/");
+});
+builder.Services.AddLogging();
+
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
@@ -23,10 +32,22 @@ builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAu
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<CartService>();
 
-builder.Services.AddAuthentication().AddFacebook(x =>
+builder.Services.AddAuthentication().AddFacebook(options =>
 {
-    x.AppId = builder.Configuration["FacebookAppId"]!;
-    x.AppSecret = builder.Configuration["FacebookAppSecret"]!;
+    options.AppId = builder.Configuration["FacebookAppId"]!;
+    options.AppSecret = builder.Configuration["FacebookAppSecret"]!;
+    options.Fields.Add("picture");
+    options.Events = new OAuthEvents
+    {
+        OnCreatingTicket = context =>
+        {
+            var identity = (ClaimsIdentity)context.Principal.Identity;
+            var profileImg = context.User.GetProperty("picture").GetProperty("data").GetProperty("url").ToString();
+            identity.AddClaim(new Claim(JwtClaimTypes.Picture, profileImg));
+            return Task.CompletedTask;
+        }
+    };
+
 });
 
 
@@ -53,6 +74,9 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+builder.Services.AddScoped<UserManager<ApplicationUser>>();
+builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 
 var app = builder.Build();
 
