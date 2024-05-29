@@ -61,10 +61,10 @@
     private HttpContext HttpContext { get; set; } = default!;
 
     [SupplyParameterFromForm]
-    internal InputModel Input { get; set; } = new();
+    private InputModel Input { get; set; } = new();
 
     [SupplyParameterFromQuery]
-    internal string? ReturnUrl { get; set; }
+    private string? ReturnUrl { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -101,7 +101,7 @@
         }
     }
 
-    internal sealed class InputModel
+    private sealed class InputModel
     {
         [Required]
         [EmailAddress]
