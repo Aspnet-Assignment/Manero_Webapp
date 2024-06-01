@@ -64,16 +64,55 @@ p{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: 10rem;
+    border-bottom: 2px solid #DBE3F5;
 }
 
 .fa-check{
     color: green;
 }
 
-.subtotal, .delivery, .discount {
+.subtotal, .delivery, .discount, .total {
+    font-size: 18px;
+    width: 90%;
     display: flex;
-    justify-content: space-around;
-    align-content: space-between;
+    justify-content: space-between;
+}
+
+.subtotal, .total{
+    font-weight: 900;
+}
+
+.free {
+    color: #00824B;
+}
+
+.promocode{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    margin: 1.5rem 1.5rem;
+}
+
+.bottom {
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 20rem;
+}
+
+.checkoutButton{
+    color: #ffffff;
+    background-color: black;
+    border: none;
+    border-radius: 30rem;
+    height: 4rem;
+    width: 30rem;
 }
