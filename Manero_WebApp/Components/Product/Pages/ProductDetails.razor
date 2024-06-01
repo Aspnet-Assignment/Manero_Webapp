@@ -8,9 +8,9 @@
 @inject NavigationManager NavigationManager
 @inject ProductService ProductService
 @inject CartService CartService
-@inject UserManager<ApplicationUser> UserManager
 @inject HttpClient HttpClient
-@inject AuthenticationStateProvider AuthenticationStateProvider
+@* @inject UserManager<ApplicationUser> UserManager *@
+@* @inject AuthenticationStateProvider AuthenticationStateProvider *@
 
 @rendermode InteractiveServer
 
@@ -22,7 +22,6 @@
             <img src="@ImageUrl" />
         </div>
     </div>
-
 
     <div class="right-view-bscreen">
         <div class="detail-carousel">
@@ -110,7 +109,7 @@
     public string? productId { get; set; }
 
     public ProductEntity? Product { get; set; }
-    private bool isLoading = true;
+    public bool isLoading = true;
     public string ImageUrl { get; set; } = string.Empty;
 
     public List<string> AvailableSizes { get; set; } = new();
@@ -122,7 +121,7 @@
     public int Quantity { get; set; } = 1;
     private string messageClass = "";
     private ReviewModel reviewModel = new ReviewModel();
-    private bool isAuthenticated = false;
+    // private bool isAuthenticated = false;
 
     protected override async Task OnInitializedAsync()
     {
