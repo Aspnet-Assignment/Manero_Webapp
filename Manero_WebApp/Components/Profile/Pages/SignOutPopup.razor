@@ -15,9 +15,11 @@
 @if (IsVisible)
 {
     <div class="modal">
-        <div class="modal-content">
-            <img src="../../Images/rectangle.png" alt="" />
-            @ChildContent
+        <div class="outerCircle">
+            <div class="modal-content">
+                <img src="../../Images/rectangle.png" alt="" />
+                @ChildContent
+            </div>
         </div>
     </div>
 }
@@ -51,17 +53,17 @@
         border-radius: 25rem;
     }
 
-/*     .outerCircle {
+    .outerCircle {
         z-index: -2;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(0,0,0,0.4);
         margin: 15% auto;
         padding: 20px;
-        border: 1rem solid #FFFFFF;
-        height: 28rem;
-        width: 28rem;
-    } */
+        border: 0.5rem solid #FFFFFF;
+        height: 30rem;
+        width: 30rem;
+        border-radius: 30rem;
+    }
 
 </style>
