@@ -6,7 +6,7 @@ public class CartService
 {
     private List<CartItem> CartItems { get; set; } = new();
 
-    public void AddToCart(CartItem item)
+    public virtual void AddToCart(CartItem item)
     {
         var existingItem = CartItems.FirstOrDefault(x => x.ProductId == item.ProductId && x.Size == item.Size && x.Color == item.Color);
         if (existingItem != null)
