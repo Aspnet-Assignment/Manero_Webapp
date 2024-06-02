@@ -1,41 +1,48 @@
-﻿using NSubstitute;
-using Bunit;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Moq;
 using Xunit;
-using Manero_WebApp.Components.Account;
-using Manero_WebApp.Components.Account.Pages;
-using Manero_WebApp.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
+using Manero_WebApp.Services;
 using Microsoft.AspNetCore.Components;
+using Manero_WebApp.Data;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.
 
-public class LoginTests : TestContext
+public class LoginServiceTests
 {
     [Fact]
-    public async Task LoginUser_RedirectsToProductHome_WhenLoginSucceeds()
+    public async Task LoginUser_SuccessfulLogin_RedirectsToProductHome()
     {
         // Arrange
-        var services = new TestServiceProvider().AddTestAuthorization();
+        var mockUserManager = new Mock<UserManager<ApplicationUser>>(
+            Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null);
 
-        // Set up any necessary dependencies
-        // For example, you might need to mock a database context or set up a test database
+        var mockSignInManager = new Mock<SignInManager<ApplicationUser>>(
+            mockUserManager.Object,
+            Mock.Of<IHttpContextAccessor>(),
+            Mock.Of<IUserClaimsPrincipalFactory<ApplicationUser>>(),
+            null, null, null, null);
 
-        // Add the Login component to the test context with mocked dependencies
-        var loginComponent = RenderComponent<Login>(
-            ("SignInManager", Substitute.For<SignInManager<ApplicationUser>>(/* mock SignInManager dependencies */)),
-            ("Logger", Substitute.For<ILogger<Login>>()),
-            ("RedirectManager", Substitute.For<IdentityRedirectManager>())
-        );
+        var mockNavigationManager = new Mock<NavigationManager>(MockBehavior.Loose, null);
+        var mockRedirectManager = new Mock<IdentityRedirectManager>(mockNavigationManager.Object);
+
+        mockSignInManager
+            .Setup(m => m.PasswordSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
+            .ReturnsAsync(SignInResult.Success);
+
+        var loginService = new LoginService(mockSignInManager.Object, mockRedirectManager.Object);
+
+        var loginInput = new LoginService.InputModel
+        {
+            Email = "test@example.com",
+            Password = "password",
+            RememberMe = true
+        };
+        loginService.Input = loginInput;
 
         // Act
-        await loginComponent.Instance.LoginUser();
+        await loginService.LoginUser();
 
         // Assert
-        // Verify that the RedirectManager is called with the correct URL
-        // You might need to use a different method to assert the redirection
-        // depending on how the RedirectManager is implemented
-        // For example, you might need to check if the URL in the browser has changed
+        mockRedirectManager.Verify(redirect => redirect.RedirectTo("/producthome"), Times.Once);
     }
 }
