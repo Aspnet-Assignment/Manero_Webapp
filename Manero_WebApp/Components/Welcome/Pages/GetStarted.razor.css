@@ -50,6 +50,21 @@
     width: 100%;
 }
 
+.manero-ring {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .big-manero-ring {
+        display: none;
+    }
+
+    .manero-ring {
+
+    }
+
+}
+
 .getstarted-title {
     font-size: 2.2rem;
     z-index: 2;

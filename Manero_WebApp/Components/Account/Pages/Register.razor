@@ -80,6 +80,10 @@
             <button type="submit" class="mt-2 bg-black rounded-3xl text-white px-40 py-2">SIGN UP</button>
         </EditForm>
         <p class="mb-10">Already have an account? <a class="font-bold" href="/account/login">Sign in</a></p>
+
+        <div>
+        <ExternalLoginPicker />
+        </div>
     </div>
 </div>
 
@@ -131,6 +135,7 @@
     {
         var user = new ApplicationUser
         {
+            EmailConfirmed = true,
             FirstName = Input.FirstName,
             LastName = Input.LastName,
             UserName = Input.Email,
@@ -144,15 +149,15 @@
 
 
 
-        if (UserManager.Options.SignIn.RequireConfirmedAccount)
-        {
-            await http.PostAsJsonAsync<RegisterFormModel>("http://localhost:7001/api/GenerateVerificationCodeUseingHttp", Input);
-            RedirectManager.RedirectTo("Account/RegisterConfirmation", new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+        // if (UserManager.Options.SignIn.RequireConfirmedAccount)
+        // {
+        //     await http.PostAsJsonAsync<RegisterFormModel>("http://localhost:7001/api/GenerateVerificationCodeUseingHttp", Input);
+        //     RedirectManager.RedirectTo("Account/RegisterConfirmation", new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
             
-        }
+        // }
 
         await SignInManager.SignInAsync(user, isPersistent: false);
-        RedirectManager.RedirectTo(ReturnUrl);
+        RedirectManager.RedirectTo("/account/login");
     }
 
 

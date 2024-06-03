@@ -8,13 +8,16 @@ public class ProductService(HttpClient httpClient, ILogger<ProductService> logge
     private readonly HttpClient _httpClient = httpClient;
     private readonly ILogger<ProductService> _logger = logger;
 
+    public ProductService() : this(new HttpClient(), new LoggerFactory().CreateLogger<ProductService>())
+    {
+    }
     public async Task<List<ProductEntity>> GetAllProductsAsync()
     {
         var products = await _httpClient.GetFromJsonAsync<List<ProductEntity>>("https://manero-products-fa.azurewebsites.net/api/products/all");
         return products ?? new List<ProductEntity>();
     }
 
-    public async Task<ProductEntity?> GetAllProductByIdAsync(string productId)
+    public virtual async Task<ProductEntity?> GetAllProductByIdAsync(string productId)
     {
         var response = await _httpClient.GetAsync($"https://manero-products-fa.azurewebsites.net/api/products/{productId}");
         if (!response.IsSuccessStatusCode)
@@ -43,4 +46,7 @@ public class ProductService(HttpClient httpClient, ILogger<ProductService> logge
             .ToList();
         return filteredProducts;
     }
+
+
+
 }

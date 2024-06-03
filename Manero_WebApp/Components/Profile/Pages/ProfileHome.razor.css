@@ -45,3 +45,28 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+.logoutButton {
+    width: 12rem;
+    height: 4rem;
+    background-color: black;
+    color: #ffffff;
+    border: none;
+    border-radius: 20rem;
+    font-size: 20px;
+}
+
+.cancelButton {
+    background-color: #ffffff;
+    border: none;
+    margin-top: 10px;
+    width: 8rem;
+    height: 3rem;
+    font-size: 20px;
+}
+
+.rusure {
+    margin-top: 1rem;
+    text-align: center;
+    margin: 2rem 1rem;
+}

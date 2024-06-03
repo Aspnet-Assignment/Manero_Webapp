@@ -89,13 +89,13 @@
 </section>
 
 <SignOutPopup IsVisible="isModalVisible" IsVisibleChanged="OnModalVisibilityChanged">
-    <h2>Are you sure you want to sign out?</h2>
+    <h1 class="rusure">Are you sure you want to sign out?</h1>
     <form action="/Logout" method="post">
-        <button type="submit">
-            <span aria-hidden="true"></span> Sure
+        <button class="logoutButton" type="submit">
+            <span aria-hidden="true"></span> SURE
         </button>
     </form>
-    <button @onclick="CloseModal">Cancel</button>
+    <button class="cancelButton" @onclick="CloseModal">CANCEL</button>
 </SignOutPopup>
 
 @code {
